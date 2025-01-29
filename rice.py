@@ -43,15 +43,12 @@ if uploaded_file:
 
    
     # Handle Outliers
-    rows_before = len(x)
-    Q1 = x.quantile(0.25)
-    Q3 = x.quantile(0.75)
-    IQR = Q3 - Q1
+    Q3=x.quantile(0.75)
+    Q1=x.quantile(0.25)
+    IQR=Q3-Q1
     x = x[~((x < (Q1 - 1.5 * IQR)) | (x > (Q3 + 1.5 * IQR))).any(axis=1)]
-    rows_after = len(x)
-    st.write(f"Rows removed due to outliers: {rows_before - rows_after}")
 
-
+    sns.boxplot(x)
    
     scaler = MinMaxScaler()
     x_scaled = scaler.fit_transform(x)
