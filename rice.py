@@ -45,7 +45,10 @@ if uploaded_file:
     Q1 = x.quantile(0.25)
     Q3 = x.quantile(0.75)
     IQR = Q3 - Q1
-    x = x[~((x < (Q1 - 1.5 * IQR)) | (x > (Q3 + 1.5 * IQR))).any(axis=1)]
+    outlier_mask = x[~((x < (Q1 - 1.5 * IQR)) | (x > (Q3 + 1.5 * IQR))).any(axis=1)]
+
+    x = x[outlier_mask]
+    y = y[outlier_mask]
 
    
     scaler = MinMaxScaler()
