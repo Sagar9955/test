@@ -62,6 +62,8 @@ if uploaded_file:
     # Align y with filtered x
     y_filtered = y[x_filtered.index]
 
+    sns.boxplot(x_filtered)
+
     # Scale the data
     scaler = MinMaxScaler()
     x_scaled = scaler.fit_transform(x_filtered)
